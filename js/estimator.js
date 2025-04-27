@@ -89,7 +89,7 @@ function toggleAdvanced() {
 
 function downloadPDF() {
     alert("PDF Export coming soon! (We’ll integrate jsPDF here.)");
-}
+} 
 
 
 
