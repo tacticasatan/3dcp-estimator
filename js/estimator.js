@@ -1,4 +1,5 @@
 function calculate() {
+    // Retrieve inputs for print and material calculations
     const beadWidth = parseFloat(document.getElementById('beadWidth').value);
     const beadHeight = parseFloat(document.getElementById('beadHeight').value);
     const linearFeet = parseFloat(document.getElementById('linearFeet').value);
@@ -10,12 +11,20 @@ function calculate() {
     const machineCost = parseFloat(document.getElementById('machineCost').value) || 0;
     const contingency = parseFloat(document.getElementById('contingency').value) / 100 || 0.05;
 
+    // Mix Design Inputs (new)
+    const cementAmount = parseFloat(document.getElementById('cementAmount').value) || 0;
+    const cementType = document.getElementById('cementType').value;
+    const aggregateAmount = parseFloat(document.getElementById('aggregateAmount').value) || 0;
+    const additiveAmount = parseFloat(document.getElementById('additiveAmount').value) || 0;
+    const flyAshAmount = parseFloat(document.getElementById('flyAshAmount').value) || 0;
+    const waterAmount = parseFloat(document.getElementById('waterAmount').value) || 0;
+
     // Volume Calculations
     const totalInches = linearFeet * 12;
     const crossSectionArea = beadWidth * beadHeight;
     const volumeInCubicInches = crossSectionArea * totalInches;
-    const cubicYards = volumeInCubicInches / 46656; // 1 cubic yard = 46,656 cubic inches
-    const cubicMeters = cubicYards * 0.764555; // Convert cubic yards to cubic meters
+    const cubicYards = volumeInCubicInches / 46656;  // 1 cubic yard = 46,656 cubic inches
+    const cubicMeters = cubicYards * 0.764555;  // Convert cubic yards to cubic meters
 
     const materialCost = cubicYards * materialCostPerYd;
 
@@ -31,24 +40,30 @@ function calculate() {
     let totalCost = subtotal + (subtotal * contingency);
 
     // Waste Estimate
-    const wastePercent = (1 - uptime); // Downtime is waste percentage
-    const wasteVolume = cubicYards * wastePercent; // Waste in cubic yards
+    const wastePercent = (1 - uptime);  // Downtime is waste percentage
+    const wasteVolume = cubicYards * wastePercent;  // Waste in cubic yards
 
-    // Carbon Savings Calculation
-    const traditionalCO2perCY = 181.44; // 400 lbs ≈ 181.44 kg CO₂ per cubic yard
-    const dpcCO2perCY = 291; // 3DPC average CO₂ per cubic yard
-    const adjusted3DPCVolume = cubicYards * 0.7; // 30% volume reduction for 3DPC
+    // Carbon Emissions Calculation
+    const traditionalCO2perCY = 181.44;  // 400 lbs ≈ 181.44 kg CO₂ per cubic yard
+    const dpcCO2perCY = cementType === "portland" ? 291 : 250;  // Adjust CO₂ for cement type
 
+    // Emissions based on mix design (user input)
+    const cementCO2 = cementAmount * 0.9;  // Cement CO2 factor
+    const aggregateCO2 = aggregateAmount * 0.03;  // Approx. CO₂ for aggregates (depends on transport)
+    const additiveCO2 = additiveAmount * 0.05;  // Small contribution for additives
+    const flyAshCO2 = flyAshAmount * 0.4;  // Approx. CO₂ for fly ash
+
+    const totalCO2 = cementCO2 + aggregateCO2 + additiveCO2 + flyAshCO2;  // Total CO₂ from user input
     const traditionalCO2 = cubicYards * traditionalCO2perCY;
     const dpcCO2 = adjusted3DPCVolume * dpcCO2perCY;
 
     const carbonSavings = traditionalCO2 - dpcCO2;
 
-    let carbonMsg = carbonSavings > 0 
-        ? `Estimated Carbon Savings: ${carbonSavings.toFixed(2)} kg CO₂`
-        : `Note: Current mix design may result in higher CO₂ emissions. Optimize for sustainability.`;
+    let carbonMsg = carbonSavings > 0
+        ? `Estimated Carbon Savings: ${carbonSavings.toFixed(2)} kg CO₂ compared to traditional concrete.`
+        : `3DCP's carbon emissions depend on mix design and material optimization. For the best results, consider adjusting your mix to reduce CO₂ emissions.`;
 
-    // Efficiency Score
+    // Efficiency Score Calculation
     const speedFactor = printSpeed / 3;  // Assuming 3 in/sec is average speed
     const efficiencyScore = Math.min(100, (uptime * 100) * speedFactor - (wastePercent * 50));
 
@@ -75,6 +90,7 @@ function toggleAdvanced() {
 function downloadPDF() {
     alert("PDF Export coming soon! (We’ll integrate jsPDF here.)");
 }
+
 
 
 
