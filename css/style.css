@@ -1,77 +1,77 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DCP Project Estimator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/your-logo-link.png" alt="Critchfield 3DCP Consulting" class="logo">
+        <h1>3D Concrete Printing Project Estimator</h1>
+    </header>
 
-header {
-    background-color: #d75627;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+    <main>
+        <section class="inputs">
+            <h2>Project Inputs</h2>
+            <label>Bead Width (inches): <input type="number" id="beadWidth"></label>
+            <label>Bead Height (inches): <input type="number" id="beadHeight"></label>
+            <label>Total Linear Feet: <input type="number" id="linearFeet"></label>
+            <label>Print Speed (in/sec): <input type="number" id="printSpeed"></label>
+            <label>Uptime Efficiency (%): <input type="number" id="uptime" value="85"></label>
+            <label>Material Cost per yd³ ($): <input type="number" id="materialCost"></label>
+            <button onclick="calculate()">Calculate Estimate</button>
+            <button onclick="toggleAdvanced()">Advanced Options</button>
 
-.logo {
-    width: 150px;
-    margin-bottom: 10px;
-}
+            <div id="advancedOptions" style="display:none;">
+                <h3>Advanced Options</h3>
+                <label>Operator Cost/hr ($): <input type="number" id="operatorCost"></label>
+                <label>Machine Cost/hr ($): <input type="number" id="machineCost"></label>
+                <label>Contingency (%): <input type="number" id="contingency" value="5"></label>
+            </div>
+        </section>
 
-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
+        <!-- Mix Design Section -->
+        <section class="mix-design">
+            <h2>Mix Design Inputs</h2>
+            <label for="cementAmount">Cement Amount (kg): 
+                <input type="number" id="cementAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="cementType">Cement Type: 
+                <select id="cementType">
+                    <option value="portland">Portland</option>
+                    <option value="geopolymer">Geopolymer</option>
+                </select>
+            </label>
+            <label for="aggregateAmount">Aggregate Amount (kg): 
+                <input type="number" id="aggregateAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="additiveAmount">Additive Amount (kg): 
+                <input type="number" id="additiveAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="flyAshAmount">Fly Ash Amount (kg): 
+                <input type="number" id="flyAshAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="waterAmount">Water Amount (kg or L): 
+                <input type="number" id="waterAmount" placeholder="Enter amount in kg or liters">
+            </label>
+        </section>
 
-.inputs, .outputs, .mix-design {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-}
+        <section class="outputs">
+            <h2>Estimate Results</h2>
+            <div id="results"></div>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </section>
+    </main>
 
-h1, h2 {
-    margin-top: 0;
-}
+    <footer>
+        <p>© 2024 Critchfield 3DCP Consulting</p>
+    </footer>
 
-label {
-    display: block;
-    margin: 10px 0;
-}
+    <script src="js/estimator.js"></script>
+</body>
+</html>
 
-input[type="number"], select {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #d75627;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 10px 5px 0 0;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #b94720;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
 
 
