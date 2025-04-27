@@ -36,4 +36,18 @@ function calculate() {
         <p><strong>Total Print Time:</strong> ${printTimeHours.toFixed(2)} hours</p>
         <p><strong>Material Cost:</strong> $${materialCost.toFixed(2)}</p>
         <p><strong>Labor Cost:</strong> $${laborCost.toFixed(2)}</p>
-        <p><
+        <p><strong>Machine Cost:</strong> $${machineRunCost.toFixed(2)}</p>
+        <p><strong>Contingency (${(contingency*100).toFixed(1)}%):</strong> $${(subtotal * contingency).toFixed(2)}</p>
+        <h3>Total Estimated Cost: $${totalCost.toFixed(2)}</h3>
+    `;
+}
+
+function toggleAdvanced() {
+    const adv = document.getElementById('advancedOptions');
+    adv.style.display = adv.style.display === 'none' ? 'block' : 'none';
+}
+
+function downloadPDF() {
+    alert("PDF Export coming soon! (We’ll integrate jsPDF here.)");
+}
+
