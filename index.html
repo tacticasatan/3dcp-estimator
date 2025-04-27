@@ -32,6 +32,32 @@
             </div>
         </section>
 
+        <!-- Mix Design Section -->
+        <section class="mix-design">
+            <h2>Mix Design Inputs</h2>
+            <label for="cementAmount">Cement Amount (kg): 
+                <input type="number" id="cementAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="cementType">Cement Type: 
+                <select id="cementType">
+                    <option value="portland">Portland</option>
+                    <option value="geopolymer">Geopolymer</option>
+                </select>
+            </label>
+            <label for="aggregateAmount">Aggregate Amount (kg): 
+                <input type="number" id="aggregateAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="additiveAmount">Additive Amount (kg): 
+                <input type="number" id="additiveAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="flyAshAmount">Fly Ash Amount (kg): 
+                <input type="number" id="flyAshAmount" placeholder="Enter amount in kg">
+            </label>
+            <label for="waterAmount">Water Amount (kg or L): 
+                <input type="number" id="waterAmount" placeholder="Enter amount in kg or liters">
+            </label>
+        </section>
+
         <section class="outputs">
             <h2>Estimate Results</h2>
             <div id="results"></div>
@@ -46,3 +72,4 @@
     <script src="js/estimator.js"></script>
 </body>
 </html>
+
