@@ -14,12 +14,12 @@ function calculate() {
     const totalInches = linearFeet * 12;
     const crossSectionArea = beadWidth * beadHeight;
     const volumeInCubicInches = crossSectionArea * totalInches;
-    const cubicYards = volumeInCubicInches / 46656;
-    const cubicMeters = cubicYards * 0.764555;
+    const cubicYards = volumeInCubicInches / 46656; // 1 cubic yard = 46,656 cubic inches
+    const cubicMeters = cubicYards * 0.764555; // Convert cubic yards to cubic meters
 
     const materialCost = cubicYards * materialCostPerYd;
 
-    // Print Time
+    // Print Time Calculation
     const printTimeSeconds = totalInches / (printSpeed * uptime);
     const printTimeHours = printTimeSeconds / 3600;
 
@@ -31,13 +31,13 @@ function calculate() {
     let totalCost = subtotal + (subtotal * contingency);
 
     // Waste Estimate
-    const wastePercent = (1 - uptime);
-    const wasteVolume = cubicYards * wastePercent;
+    const wastePercent = (1 - uptime); // Downtime is waste percentage
+    const wasteVolume = cubicYards * wastePercent; // Waste in cubic yards
 
-    // Carbon Savings
-    const traditionalCO2perCY = 181.44;
-    const dpcCO2perCY = 291;
-    const adjusted3DPCVolume = cubicYards * 0.7;
+    // Carbon Savings Calculation
+    const traditionalCO2perCY = 181.44; // 400 lbs ≈ 181.44 kg CO₂ per cubic yard
+    const dpcCO2perCY = 291; // 3DPC average CO₂ per cubic yard
+    const adjusted3DPCVolume = cubicYards * 0.7; // 30% volume reduction for 3DPC
 
     const traditionalCO2 = cubicYards * traditionalCO2perCY;
     const dpcCO2 = adjusted3DPCVolume * dpcCO2perCY;
@@ -46,10 +46,10 @@ function calculate() {
 
     let carbonMsg = carbonSavings > 0 
         ? `Estimated Carbon Savings: ${carbonSavings.toFixed(2)} kg CO₂`
-        : `Note: Current mix design may result in higher CO₂. Optimize for sustainability.`;
+        : `Note: Current mix design may result in higher CO₂ emissions. Optimize for sustainability.`;
 
     // Efficiency Score
-    const speedFactor = printSpeed / 3;  // Assuming 3 in/sec is average
+    const speedFactor = printSpeed / 3;  // Assuming 3 in/sec is average speed
     const efficiencyScore = Math.min(100, (uptime * 100) * speedFactor - (wastePercent * 50));
 
     document.getElementById('results').innerHTML = `
@@ -75,5 +75,6 @@ function toggleAdvanced() {
 function downloadPDF() {
     alert("PDF Export coming soon! (We’ll integrate jsPDF here.)");
 }
+
 
 
