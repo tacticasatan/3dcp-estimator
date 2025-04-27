@@ -55,6 +55,10 @@ function calculate() {
 
     const totalCO2 = cementCO2 + aggregateCO2 + additiveCO2 + flyAshCO2;  // Total CO₂ from user input
     const traditionalCO2 = cubicYards * traditionalCO2perCY;
+
+    // Define the adjusted 3DPC volume based on 30% reduction
+    const adjusted3DPCVolume = cubicYards * 0.7;  // 30% volume reduction for 3DPC
+
     const dpcCO2 = adjusted3DPCVolume * dpcCO2perCY;
 
     const carbonSavings = traditionalCO2 - dpcCO2;
@@ -89,9 +93,4 @@ function toggleAdvanced() {
 
 function downloadPDF() {
     alert("PDF Export coming soon! (We’ll integrate jsPDF here.)");
-} 
-
-
-
-
-
+}
